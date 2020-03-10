@@ -17,7 +17,7 @@ int main() {
 	int count;
 
 	//Creating a new array of forms
-	struct DynamicArray* arr = CreateDynamicArray(4, sizeof(struct Form*));
+	struct DynamicArray* arr = createDynamicArray(4, sizeof(struct Form*));
 
 	printf("Welcome to LinearForm console application! To see the list of commands, please type 'help'.\n");
 
@@ -41,15 +41,15 @@ int main() {
 				}
 				//Creating a new form and adding it to the array
 				struct Form* a = createLinearForm(len, values);
-				Add(arr, a, getArrayCount(arr));
+				add(arr, a, getArrayCount(arr));
 			}
 		}
 		else if (strcmp(command, "print") == 0) {
 			//Check Help to see how the command works
 			int n = 0;
 			scanf("%d", &n);
-			if ((n <= 0)||(n>count)) PrintForms(arr);
-			else PrintLinearForm(getForm(arr, n-1));
+			if ((n <= 0)||(n>count)) printForms(arr);
+			else printLinearForm(getForm(arr, n-1));
 		}
 		else if (strcmp(command, "add") == 0) {
 			int arg2 = 0, arg3 = 0;
@@ -58,7 +58,7 @@ int main() {
 				//Decrementing form numbers because they actually start with zero
 				arg2--;
 				arg3--;
-				setArray(arr, arg2, Sum(getArray(arr, arg2), getArray(arr, arg3)));
+				setArray(arr, arg2, sum(getArray(arr, arg2), getArray(arr, arg3)));
 			}
 			else
 				printf("A number of target form(s) must be positive and not greater than number of forms!");
@@ -70,7 +70,7 @@ int main() {
 			if ((arg2 > 0) && (arg3 > 0) && (arg2 <= count) && (arg3 <= count)) {
 				arg2--;
 				arg3--;
-				Add(arr, Sum(getArray(arr, arg2), getArray(arr, arg3)), getArrayCount(arr));
+				add(arr, sum(getArray(arr, arg2), getArray(arr, arg3)), getArrayCount(arr));
 			}
 			else
 				printf("A number of target form(s) must be positive and not greater than number of forms!");
@@ -82,7 +82,7 @@ int main() {
 				//Decrementing form numbers because they actually start with zero
 				arg2--;
 				arg3--;
-				setArray(arr, arg2, Subtract(getArray(arr, arg2), getArray(arr, arg3)));
+				setArray(arr, arg2, subtract(getArray(arr, arg2), getArray(arr, arg3)));
 			}
 			else
 				printf("A number of target form(s) must be positive and not greater than number of forms!");
@@ -94,7 +94,7 @@ int main() {
 				//Decrementing form numbers because they actually start with zero
 				arg2--;
 				arg3--;
-				Add(arr, Subtract(getArray(arr, arg2), getArray(arr, arg3)), getArrayCount(arr));
+				add(arr, subtract(getArray(arr, arg2), getArray(arr, arg3)), getArrayCount(arr));
 			}
 			else
 				printf("A number of target form(s) must be positive and not greater than number of forms!");
@@ -106,7 +106,7 @@ int main() {
 			if ((arg2 > 0) && (arg2 <= count)) {
 				//Decrementing form numbers because they actually start with zero
 				arg2--;
-				setArray(arr, arg2, Multiply(getArray(arr, arg2), arg3));
+				setArray(arr, arg2, multiply(getArray(arr, arg2), arg3));
 			}
 			else
 				printf("A number of target form(s) must be positive and not greater than number of forms!");
@@ -119,7 +119,7 @@ int main() {
 			if ((arg2 > 0) && (arg2 <= count)) {
 				//Decrementing form numbers because they actually start with zero
 				arg2--;
-				Add(arr, Multiply(getArray(arr, arg2), arg3), getArrayCount(arr));
+				add(arr, multiply(getArray(arr, arg2), arg3), getArrayCount(arr));
 			}
 			else
 				printf("A number of target form(s) must be positive and not greater than number of forms!");
@@ -132,16 +132,28 @@ int main() {
 				//Decrementing form numbers because they actually start with zero
 				arg2--;
 				//Entering a number for each variable in the form
-				int count = GetElementCount(getArray(arr, arg2)) - 1;
+				int count = getElementCount(getArray(arr, arg2)) - 1;
 				values = (double*)malloc(count * sizeof(double));
 				printf("Enter %d variable value(s), split them using space\n", count);
 				for (int i = 0; i < count; i++) {
 					scanf("%lf", values + i);
 				}
-				printf("%lg\n", Calculate(getArray(arr, arg2), values));
+				printf("%lg\n", calculate(getArray(arr, arg2), values));
 			}
 			else
 				printf("A number of target form(s) must be positive and not greater than number of forms!");
+		}
+		else if (strcmp(command, "cmul") == 0) {
+		int arg2 = 0, arg3 = 0;
+		scanf("%d %d", &arg2, &arg3);
+		if ((arg2 > 0) && (arg3 > 0) && (arg2 <= count) && (arg3 <= count)) {
+			//Decrementing form numbers because they actually start with zero
+			arg2--;
+			arg3--;
+			crossMultiply(getArray(arr, arg2), getArray(arr, arg3));
+		}
+		else
+			printf("A number of target form(s) must be positive and not greater than number of forms!");
 		}
 		else if (strcmp(command, "del") == 0) {
 			int arg2 = 0;
@@ -149,7 +161,7 @@ int main() {
 			if ((arg2 > 0) && (arg2 <= count)) {
 				//Decrementing form numbers because they actually start with zero
 				arg2--;
-				Delete(arr, arg2);
+				del(arr, arg2);
 			}
 			else
 				printf("A number of target form(s) must be positive and not greater than number of forms!");
@@ -159,22 +171,25 @@ int main() {
 			scanf("%d", &arg2);
 			switch (arg2) {
 				case 1:
-					TestSumInt();
+					testSumInt();
 					break;
 				case 2:
-					TestSumDouble();
+					testSumDouble();
 					break;
 				case 3:
-					TestMultInt();
+					testMultInt();
 					break;
 				case 4:
-					TestMultDouble();
+					testMultDouble();
 					break;
 				case 5:
-					TestCountInt();
+					testCountInt();
 					break;
 				case 6:
-					TestCountDouble();
+					testCountDouble();
+					break;
+				case 7:
+					testCrossMult();
 					break;
 				default:
 					printf("test 1 - adding forms with integer elements\n");
@@ -183,6 +198,7 @@ int main() {
 					printf("test 4 - multiplying form with float elements on float number\n");
 					printf("test 5 - calculating the value of the form with integer elements on integer number\n");
 					printf("test 6 - calculating the value of the form with float elements on float number\n");
+					printf("test 7 - cross-multiplying forms\n");
 					break;
 			}	
 		}
@@ -194,8 +210,9 @@ int main() {
 			printf("sum a b \tFinds a sum of linear forms a and b and adds it to the array of existing forms.\n");
 			printf("sub a b \tFinds a difference of linear forms a and b and puts it on the place of a.\n");
 			printf("dif a b \tFinds a difference of linear forms a and b and adds it to the array of existing forms.\n");
-			printf("mult a b\tFinds a product of linear forms a and b and puts it on the place of a.\n");
-			printf("prod a b\tFinds a product of linear forms a and b and adds it to the array of existing forms.\n");
+			printf("mult a m\tFinds a product of linear form a and number m and puts it on the place of a.\n");
+			printf("prod a m\tFinds a product of linear form a and number m and adds it to the array of existing forms.\n");
+			printf("cmul a b\tFinds a product of linear form a and b and displays it on the screen.\n");
 			printf("calc n  \tFinds a value of linear form n with known values of variables and displays it on the screen. \nYou must enter all variable values after pressing Enter.\n");
 			printf("del n   \tDeletes a form with number a.\n");
 			printf("help    \tDisplays help\n");
@@ -205,6 +222,10 @@ int main() {
 		}
 		else if ((strcmp(command, "exit") && strcmp(command, "quit")) == 0) {
 			//Add memory cleaning
+			for (int i = count - 1; i >= 0; i--) {
+				del(arr, i);
+			}
+			free(arr);
 			return 0;
 		}
 		printf("\n");

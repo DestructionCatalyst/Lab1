@@ -13,7 +13,7 @@ struct DynamicArray
 };
 
 //Creates a dynamic array with capacity 'BaseCapacity' and elements of size 'el_size' and returns a pointer on it
-struct DynamicArray* CreateDynamicArray(int BaseCapacity, int el_size);
+struct DynamicArray* createDynamicArray(int BaseCapacity, int el_size);
 
 //Gets a pointer with index 'index' in dynamic array '*a'
 void* getArray(struct DynamicArray* a, int index);
@@ -25,7 +25,7 @@ void setArray(struct DynamicArray* a, int index, void* value);
 int getArrayCount(struct DynamicArray* a);
 
 //Adds a new pointer 'new' to dynamic array '*a' on the place 'index'
-void Add(struct DynamicArray* a, void* new, int index);
+void add(struct DynamicArray* a, void* new, int index);
 
 //Deletes a pointer with index 'index' in a dynamic array '*a''
-void Delete(struct DynamicArray* a, int index);
+void del(struct DynamicArray* a, int index);

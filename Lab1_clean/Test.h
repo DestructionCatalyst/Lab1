@@ -1,13 +1,15 @@
 #pragma once
 
-void TestSumInt();
+void testSumInt();
 
-void TestSumDouble();
+void testSumDouble();
 
-void TestMultInt();
+void testMultInt();
 
-void TestMultDouble();
+void testMultDouble();
 
-void TestCountInt();
+void testCountInt();
 
-void TestCountDouble();
+void testCountDouble();
+
+void testCrossMult();

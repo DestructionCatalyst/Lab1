@@ -3,7 +3,7 @@
 #include <stdio.h>
 
 //Creates a dynamic array with capacity 'BaseCapacity' and elements of size 'el_size' and returns a pointer on it
-struct DynamicArray* CreateDynamicArray(int BaseCapacity, int el_size) {
+struct DynamicArray* createDynamicArray(int BaseCapacity, int el_size) {
 
 	//Allocating memory for a dynamic array
 	struct DynamicArray* a = (struct DynamicArray*)malloc(sizeof(struct DynamicArray));
@@ -37,7 +37,7 @@ void setArray(struct DynamicArray* a, int index, void* value) {
 }
 
 //Adds a new pointer 'new' to dynamic array '*a' on the place 'index'
-void Add(struct DynamicArray* a, void* new, int index) {
+void add(struct DynamicArray* a, void* new, int index) {
 
 	if (a->el_size == sizeof(new)) {//If the element is of the right type (it is never violated, checking just for safety) 
 		if (a->capacity <= a->count) {//If it is needed to extend the array
@@ -64,7 +64,7 @@ void Add(struct DynamicArray* a, void* new, int index) {
 }
 
 //Deletes a pointer with index 'index' in a dynamic array '*a''
-void Delete(struct DynamicArray* a, int index) {
+void del(struct DynamicArray* a, int index) {
 
 	//Moving all the following arrays towards the beginning of the array
 	for (int i = index; i < getArrayCount(a)-1; i++) {
